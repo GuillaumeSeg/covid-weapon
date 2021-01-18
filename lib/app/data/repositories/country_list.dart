@@ -1,4 +1,6 @@
 const List<String> countryList = [
+  'Chile',
+  'China',
   'Costa Rica',
   'Croatia',
   'Cyprus',

@@ -30,6 +30,13 @@ mixin _$VaccineChartViewModel on _VaccineChartViewModel, Store {
           Computed<List<VaccinationCountry>>(() => super.listCountries,
               name: '_VaccineChartViewModel.listCountries'))
       .value;
+  Computed<List<BarChartDataCountry>> _$listBarChartComputed;
+
+  @override
+  List<BarChartDataCountry> get listBarChart => (_$listBarChartComputed ??=
+          Computed<List<BarChartDataCountry>>(() => super.listBarChart,
+              name: '_VaccineChartViewModel.listBarChart'))
+      .value;
 
   final _$_countryNameAtom = Atom(name: '_VaccineChartViewModel._countryName');
 
@@ -83,7 +90,8 @@ mixin _$VaccineChartViewModel on _VaccineChartViewModel, Store {
     return '''
 countryName: ${countryName},
 listVaccinated: ${listVaccinated},
-listCountries: ${listCountries}
+listCountries: ${listCountries},
+listBarChart: ${listBarChart}
     ''';
   }
 }
