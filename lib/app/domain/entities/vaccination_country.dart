@@ -9,6 +9,7 @@ part 'vaccination_country.freezed.dart';
 abstract class VaccinationCountry with _$VaccinationCountry {
   const factory VaccinationCountry({
     @required String name,
-    @required List<VaccinationEntry> entries,
+    List<VaccinationEntry> entries,
+    double percentVaccination,
   }) = _VaccinationCountry;
 }

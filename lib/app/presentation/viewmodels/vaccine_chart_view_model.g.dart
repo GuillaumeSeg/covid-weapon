@@ -16,6 +16,14 @@ mixin _$VaccineChartViewModel on _VaccineChartViewModel, Store {
       (_$countryNameComputed ??= Computed<String>(() => super.countryName,
               name: '_VaccineChartViewModel.countryName'))
           .value;
+  Computed<List<VaccinationCountry>> _$listPercentCountriesComputed;
+
+  @override
+  List<VaccinationCountry> get listPercentCountries =>
+      (_$listPercentCountriesComputed ??= Computed<List<VaccinationCountry>>(
+              () => super.listPercentCountries,
+              name: '_VaccineChartViewModel.listPercentCountries'))
+          .value;
   Computed<List<VaccinationEntry>> _$listVaccinatedComputed;
 
   @override
@@ -50,6 +58,23 @@ mixin _$VaccineChartViewModel on _VaccineChartViewModel, Store {
   set _countryName(String value) {
     _$_countryNameAtom.reportWrite(value, super._countryName, () {
       super._countryName = value;
+    });
+  }
+
+  final _$_listPercentCountriesAtom =
+      Atom(name: '_VaccineChartViewModel._listPercentCountries');
+
+  @override
+  List<VaccinationCountry> get _listPercentCountries {
+    _$_listPercentCountriesAtom.reportRead();
+    return super._listPercentCountries;
+  }
+
+  @override
+  set _listPercentCountries(List<VaccinationCountry> value) {
+    _$_listPercentCountriesAtom.reportWrite(value, super._listPercentCountries,
+        () {
+      super._listPercentCountries = value;
     });
   }
 
@@ -89,6 +114,7 @@ mixin _$VaccineChartViewModel on _VaccineChartViewModel, Store {
   String toString() {
     return '''
 countryName: ${countryName},
+listPercentCountries: ${listPercentCountries},
 listVaccinated: ${listVaccinated},
 listCountries: ${listCountries},
 listBarChart: ${listBarChart}

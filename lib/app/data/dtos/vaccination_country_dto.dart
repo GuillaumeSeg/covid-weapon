@@ -9,7 +9,8 @@ part 'vaccination_country_dto.freezed.dart';
 abstract class VaccinationCountryDto with _$VaccinationCountryDto {
   const factory VaccinationCountryDto({
     @required String name,
-    @required List<VaccinationEntryDto> list,
+    List<VaccinationEntryDto> list,
+    double totalPercent,
   }) = _VaccinationCountryDto;
 }
 
@@ -17,9 +18,10 @@ extension VaccinationCountryDtoX on VaccinationCountryDto {
   VaccinationCountry toDomain() {
     return VaccinationCountry(
       name: name,
-      entries: list.map((VaccinationEntryDto entry) {
+      entries: list?.map((VaccinationEntryDto entry) {
         return entry.toDomain();
-      }).toList(),
+      })?.toList(),
+      percentVaccination: totalPercent,
     );
   }
 }

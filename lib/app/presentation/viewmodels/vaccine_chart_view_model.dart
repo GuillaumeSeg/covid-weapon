@@ -27,6 +27,17 @@ abstract class _VaccineChartViewModel with Store {
   String get countryName => _countryName;
 
   @observable
+  List<VaccinationCountry> _listPercentCountries = [];
+
+  @computed
+  List<VaccinationCountry> get listPercentCountries {
+    _listPercentCountries.sort((VaccinationCountry a, VaccinationCountry b) {
+      return a.percentVaccination.compareTo(b.percentVaccination);
+    });
+    return _listPercentCountries;
+  }
+
+  @observable
   List<VaccinationEntry> _listVaccinated = [];
 
   @computed
@@ -70,6 +81,11 @@ abstract class _VaccineChartViewModel with Store {
     final data = await _repository.getAllCountriesEntries();
     _listCountries = data;
     print("data = $data");
+  }
+
+  void getAllCountriesPercent() async {
+    final data = await _repository.getAllCountryPercent();
+    _listPercentCountries = data;
   }
 }
 

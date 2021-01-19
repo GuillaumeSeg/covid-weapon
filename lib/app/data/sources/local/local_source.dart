@@ -25,6 +25,38 @@ class LocalSource {
     return VaccinationCountryDto(name: country, list: entries);
   }
 
+  Future<VaccinationCountryDto> getVaccinationPercentForCountry(
+      String country) async {
+    // file name that you desire to keep
+    String csvName = 'vaccinationsWorld.csv';
+    String localPath = await Utils.getFilePath(csvName);
+
+    // Read file in cache
+    final File file = File(localPath);
+    // Parse file to DTO.
+    VaccinationCountryDto entry;
+    double max = 0;
+
+    file
+        .readAsLinesSync()
+        .skipWhile((line) => !line.startsWith(country))
+        .takeWhile((line) => line.startsWith(country))
+        .map((line) {
+      final parts = line.split(',');
+      double totalPercent;
+      totalPercent = parts[9].isEmpty ? 0.0 : double.parse(parts[9]);
+      if (max <= totalPercent) {
+        max = totalPercent;
+        entry = VaccinationCountryDto(
+          name: country,
+          totalPercent: totalPercent,
+        );
+      }
+    }).toList();
+
+    return entry;
+  }
+
   Future<VaccinationWorldDto> getVaccinationWorld() async {
     // file name that you desire to keep
     String csvName = 'vaccinationsWorld.csv';

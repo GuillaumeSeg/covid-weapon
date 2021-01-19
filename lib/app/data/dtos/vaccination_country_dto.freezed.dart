@@ -15,10 +15,13 @@ class _$VaccinationCountryDtoTearOff {
 
 // ignore: unused_element
   _VaccinationCountryDto call(
-      {@required String name, @required List<VaccinationEntryDto> list}) {
+      {@required String name,
+      List<VaccinationEntryDto> list,
+      double totalPercent}) {
     return _VaccinationCountryDto(
       name: name,
       list: list,
+      totalPercent: totalPercent,
     );
   }
 }
@@ -31,6 +34,7 @@ const $VaccinationCountryDto = _$VaccinationCountryDtoTearOff();
 mixin _$VaccinationCountryDto {
   String get name;
   List<VaccinationEntryDto> get list;
+  double get totalPercent;
 
   $VaccinationCountryDtoCopyWith<VaccinationCountryDto> get copyWith;
 }
@@ -40,7 +44,7 @@ abstract class $VaccinationCountryDtoCopyWith<$Res> {
   factory $VaccinationCountryDtoCopyWith(VaccinationCountryDto value,
           $Res Function(VaccinationCountryDto) then) =
       _$VaccinationCountryDtoCopyWithImpl<$Res>;
-  $Res call({String name, List<VaccinationEntryDto> list});
+  $Res call({String name, List<VaccinationEntryDto> list, double totalPercent});
 }
 
 /// @nodoc
@@ -56,10 +60,14 @@ class _$VaccinationCountryDtoCopyWithImpl<$Res>
   $Res call({
     Object name = freezed,
     Object list = freezed,
+    Object totalPercent = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed ? _value.name : name as String,
       list: list == freezed ? _value.list : list as List<VaccinationEntryDto>,
+      totalPercent: totalPercent == freezed
+          ? _value.totalPercent
+          : totalPercent as double,
     ));
   }
 }
@@ -71,7 +79,7 @@ abstract class _$VaccinationCountryDtoCopyWith<$Res>
           $Res Function(_VaccinationCountryDto) then) =
       __$VaccinationCountryDtoCopyWithImpl<$Res>;
   @override
-  $Res call({String name, List<VaccinationEntryDto> list});
+  $Res call({String name, List<VaccinationEntryDto> list, double totalPercent});
 }
 
 /// @nodoc
@@ -89,10 +97,14 @@ class __$VaccinationCountryDtoCopyWithImpl<$Res>
   $Res call({
     Object name = freezed,
     Object list = freezed,
+    Object totalPercent = freezed,
   }) {
     return _then(_VaccinationCountryDto(
       name: name == freezed ? _value.name : name as String,
       list: list == freezed ? _value.list : list as List<VaccinationEntryDto>,
+      totalPercent: totalPercent == freezed
+          ? _value.totalPercent
+          : totalPercent as double,
     ));
   }
 }
@@ -101,18 +113,20 @@ class __$VaccinationCountryDtoCopyWithImpl<$Res>
 class _$_VaccinationCountryDto
     with DiagnosticableTreeMixin
     implements _VaccinationCountryDto {
-  const _$_VaccinationCountryDto({@required this.name, @required this.list})
-      : assert(name != null),
-        assert(list != null);
+  const _$_VaccinationCountryDto(
+      {@required this.name, this.list, this.totalPercent})
+      : assert(name != null);
 
   @override
   final String name;
   @override
   final List<VaccinationEntryDto> list;
+  @override
+  final double totalPercent;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'VaccinationCountryDto(name: $name, list: $list)';
+    return 'VaccinationCountryDto(name: $name, list: $list, totalPercent: $totalPercent)';
   }
 
   @override
@@ -121,7 +135,8 @@ class _$_VaccinationCountryDto
     properties
       ..add(DiagnosticsProperty('type', 'VaccinationCountryDto'))
       ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('list', list));
+      ..add(DiagnosticsProperty('list', list))
+      ..add(DiagnosticsProperty('totalPercent', totalPercent));
   }
 
   @override
@@ -131,14 +146,18 @@ class _$_VaccinationCountryDto
             (identical(other.name, name) ||
                 const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.list, list) ||
-                const DeepCollectionEquality().equals(other.list, list)));
+                const DeepCollectionEquality().equals(other.list, list)) &&
+            (identical(other.totalPercent, totalPercent) ||
+                const DeepCollectionEquality()
+                    .equals(other.totalPercent, totalPercent)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(list);
+      const DeepCollectionEquality().hash(list) ^
+      const DeepCollectionEquality().hash(totalPercent);
 
   @override
   _$VaccinationCountryDtoCopyWith<_VaccinationCountryDto> get copyWith =>
@@ -149,12 +168,15 @@ class _$_VaccinationCountryDto
 abstract class _VaccinationCountryDto implements VaccinationCountryDto {
   const factory _VaccinationCountryDto(
       {@required String name,
-      @required List<VaccinationEntryDto> list}) = _$_VaccinationCountryDto;
+      List<VaccinationEntryDto> list,
+      double totalPercent}) = _$_VaccinationCountryDto;
 
   @override
   String get name;
   @override
   List<VaccinationEntryDto> get list;
+  @override
+  double get totalPercent;
   @override
   _$VaccinationCountryDtoCopyWith<_VaccinationCountryDto> get copyWith;
 }

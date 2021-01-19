@@ -10,4 +10,6 @@ abstract class VaccinationCountryRepository implements Repository {
 
   Future<List<VaccinationCountry>> getAllCountriesEntries();
 
+  Future<List<VaccinationCountry>> getAllCountryPercent();
+
 }

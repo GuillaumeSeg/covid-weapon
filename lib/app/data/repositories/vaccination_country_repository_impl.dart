@@ -48,4 +48,20 @@ class VaccinationCountryRepositoryImpl implements VaccinationCountryRepository {
 
     return list;
   }
+
+  @override
+  Future<List<VaccinationCountry>> getAllCountryPercent() async {
+    List<VaccinationCountry> list = [];
+
+    list = await Future.wait(
+      countryList.map((String country) async {
+        VaccinationCountryDto resultDto =
+        await _localSource.getVaccinationPercentForCountry(country);
+
+        return resultDto.toDomain();
+      }).toList(),
+    );
+
+    return list;
+  }
 }

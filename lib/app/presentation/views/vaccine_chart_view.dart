@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:covid_weapon/app/domain/entities/vaccination_country.dart';
 import 'package:covid_weapon/app/domain/entities/vaccination_entry.dart';
 import 'package:covid_weapon/app/presentation/viewmodels/vaccine_chart_view_model.dart';
@@ -26,7 +27,8 @@ class _VaccineChartViewState extends State<VaccineChartView> {
   @override
   void initState() {
     super.initState();
-    widget.vm.getAllCountriesData();
+    //widget.vm.getAllCountriesData();
+    widget.vm.getAllCountriesPercent();
   }
 
   @override
@@ -47,10 +49,46 @@ class _VaccineChartViewState extends State<VaccineChartView> {
                 ),
               ),
               width: MediaQuery.of(context).size.width * 2,
-              child: Observer(
-                builder: (context) {
-                  return _getBarChart(widget.vm.listBarChart);
-                },
+              child: Column(
+                children: [
+                  Expanded(
+                    child: Observer(
+                      builder: (context) {
+                        return _getBarChartPercent(
+                            widget.vm.listPercentCountries);
+                      },
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Transform(
+                            alignment: Alignment.center,
+                            transform: Matrix4.rotationY(math.pi),
+                            child: Icon(
+                              Icons.double_arrow_sharp,
+                              color: color1,
+                              size: 65,
+                            ),
+                          ),
+                          Text('Immunity bomb'),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text('Next'),
+                          Icon(
+                            Icons.double_arrow_sharp,
+                            color: color1,
+                            size: 65,
+                          )
+                        ],
+                      ),
+                    ],
+                  )
+                ],
               )),
         ),
       ),
@@ -101,25 +139,7 @@ List<StepLineSeries<VaccinationEntry, DateTime>> _getStepLines(
   return lines;
 }
 
-List<LineSeries<VaccinationEntry, DateTime>> _getLines(
-    List<VaccinationCountry> list) {
-  List<LineSeries<VaccinationEntry, DateTime>> lines = [];
-  list.forEach((VaccinationCountry country) {
-    final line = LineSeries<VaccinationEntry, DateTime>(
-      name: country.name,
-      // Bind data source
-      dataSource: country.entries,
-      xValueMapper: (VaccinationEntry entry, _) => entry.date,
-      yValueMapper: (VaccinationEntry entry, _) => entry.totalVaccinated,
-      // Enables the tooltip for individual series
-      enableTooltip: true,
-      // Render the data label but too many labels.. it's not readable.
-      //dataLabelSettings: DataLabelSettings(isVisible : true),
-    );
-    lines.add(line);
-  });
-  return lines;
-}
+/// - DATE TIME CHART -
 
 SfCartesianChart _getDateTimeChart(List<VaccinationCountry> list) {
   return SfCartesianChart(
@@ -164,6 +184,28 @@ SfCartesianChart _getDateTimeChart(List<VaccinationCountry> list) {
       series: _getLines(list));
 }
 
+List<LineSeries<VaccinationEntry, DateTime>> _getLines(
+    List<VaccinationCountry> list) {
+  List<LineSeries<VaccinationEntry, DateTime>> lines = [];
+  list.forEach((VaccinationCountry country) {
+    final line = LineSeries<VaccinationEntry, DateTime>(
+      name: country.name,
+      // Bind data source
+      dataSource: country.entries,
+      xValueMapper: (VaccinationEntry entry, _) => entry.date,
+      yValueMapper: (VaccinationEntry entry, _) => entry.totalVaccinated,
+      // Enables the tooltip for individual series
+      enableTooltip: true,
+      // Render the data label but too many labels.. it's not readable.
+      //dataLabelSettings: DataLabelSettings(isVisible : true),
+    );
+    lines.add(line);
+  });
+  return lines;
+}
+
+/// - BAR CHART -
+
 SfCartesianChart _getBarChart(List<BarChartDataCountry> list) {
   return SfCartesianChart(
     title: ChartTitle(
@@ -191,8 +233,10 @@ SfCartesianChart _getBarChart(List<BarChartDataCountry> list) {
   );
 }
 
-BarSeries<BarChartDataCountry, String> _getBarLines(List<BarChartDataCountry> list) {
-  BarSeries<BarChartDataCountry, String> lines = BarSeries<BarChartDataCountry, String>(
+BarSeries<BarChartDataCountry, String> _getBarLines(
+    List<BarChartDataCountry> list) {
+  BarSeries<BarChartDataCountry, String> lines =
+      BarSeries<BarChartDataCountry, String>(
     width: 0.7, // Width of the bars
     spacing: 0.1, // Spacing between the bars
     color: color2,
@@ -203,7 +247,61 @@ BarSeries<BarChartDataCountry, String> _getBarLines(List<BarChartDataCountry> li
     // Enables the tooltip for individual series
     enableTooltip: true,
     // Render the data label but too many labels.. it's not readable.
-    dataLabelSettings: DataLabelSettings(isVisible : true),
+    dataLabelSettings: DataLabelSettings(isVisible: true),
+  );
+
+  return lines;
+}
+
+/// - BAR CHART PERCENT -
+
+SfCartesianChart _getBarChartPercent(List<VaccinationCountry> list) {
+  return SfCartesianChart(
+    title: ChartTitle(
+      text: 'Surgical strikes by country : (per 100 people)',
+      // Aligns the chart title to left
+      alignment: ChartAlignment.near,
+      textStyle: TextStyle(
+        color: Colors.red,
+        fontFamily: 'Roboto',
+        fontStyle: FontStyle.normal,
+        fontWeight: FontWeight.bold,
+        fontSize: 14,
+      ),
+    ),
+    // Init axis
+    isTransposed: false,
+    primaryXAxis: CategoryAxis(
+      visibleMinimum: 8.0,
+    ),
+    primaryYAxis: NumericAxis(
+      visibleMinimum: 0.0,
+      visibleMaximum: 20.0,
+    ),
+    zoomPanBehavior: ZoomPanBehavior(
+      enablePanning: true,
+      enableDoubleTapZooming: true,
+      enablePinching: true,
+    ),
+    series: <ChartSeries>[_getBarLinesPercent(list)],
+  );
+}
+
+BarSeries<VaccinationCountry, String> _getBarLinesPercent(
+    List<VaccinationCountry> list) {
+  BarSeries<VaccinationCountry, String> lines =
+      BarSeries<VaccinationCountry, String>(
+    width: 0.7, // Width of the bars
+    spacing: 0.1, // Spacing between the bars
+    color: color2,
+    // Bind data source
+    dataSource: list,
+    xValueMapper: (VaccinationCountry entry, _) => entry.name,
+    yValueMapper: (VaccinationCountry entry, _) => entry.percentVaccination,
+    // Enables the tooltip for individual series
+    enableTooltip: true,
+    // Render the data label but too many labels.. it's not readable.
+    dataLabelSettings: DataLabelSettings(isVisible: true),
   );
 
   return lines;
