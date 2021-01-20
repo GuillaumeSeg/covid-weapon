@@ -27,8 +27,9 @@ class _VaccineChartViewState extends State<VaccineChartView> {
   @override
   void initState() {
     super.initState();
-    //widget.vm.getAllCountriesData();
-    widget.vm.getAllCountriesPercent();
+    widget.vm.getAllCountriesData();
+
+    widget.vm.reset();
   }
 
   @override
@@ -54,37 +55,69 @@ class _VaccineChartViewState extends State<VaccineChartView> {
                   Expanded(
                     child: Observer(
                       builder: (context) {
-                        return _getBarChartPercent(
-                            widget.vm.listPercentCountries);
+                        switch (widget.vm.indexGraph) {
+                          case 1: {
+                            return _getBarChart(widget.vm.listBarChart);
+                          }
+                          case 2: {
+                            return _getBarChartPercent(widget.vm.listPercentCountries);
+                          }
+                          case 3: {
+                            return _getDateTimeChart(widget.vm.listCountries);
+                          }
+                          default: {
+                            return _getBarChart(widget.vm.listBarChart);
+                          }
+                        }
                       },
                     ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Transform(
-                            alignment: Alignment.center,
-                            transform: Matrix4.rotationY(math.pi),
-                            child: Icon(
+                      GestureDetector(
+                        onTap: widget.vm.previous,
+                        child: Row(
+                          children: [
+                            Transform(
+                              alignment: Alignment.center,
+                              transform: Matrix4.rotationY(math.pi),
+                              child: Icon(
+                                Icons.double_arrow_sharp,
+                                color: color1,
+                                size: 65,
+                              ),
+                            ),
+                            Observer(
+                              builder: (BuildContext context) {
+                                if (widget.vm.indexGraph <= ActionGraph.graphDosesAdministrated.index) {
+                                  return Text('Immunity bomb');
+                                } else {
+                                  return Text('Previous');
+                                }
+                              }),
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: widget.vm.next,
+                        child: Row(
+                          children: [
+                            Observer(
+                                builder: (BuildContext context) {
+                                  if (widget.vm.indexGraph >= ActionGraph.graphEvolutionDoses.index) {
+                                    return Text('Weapons');
+                                  } else {
+                                    return Text('Next');
+                                  }
+                                }),
+                            Icon(
                               Icons.double_arrow_sharp,
                               color: color1,
                               size: 65,
-                            ),
-                          ),
-                          Text('Immunity bomb'),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text('Next'),
-                          Icon(
-                            Icons.double_arrow_sharp,
-                            color: color1,
-                            size: 65,
-                          )
-                        ],
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   )
@@ -96,28 +129,9 @@ class _VaccineChartViewState extends State<VaccineChartView> {
   }
 }
 
-// Bar Chart vertical
+// double bar chart with immunity collective.
 // Bubble things
 // Stacked column chart
-// percentages ...
-
-List<StepAreaSeries<VaccinationEntry, DateTime>> _getStepAreas(
-    List<VaccinationCountry> list) {
-  List<StepAreaSeries<VaccinationEntry, DateTime>> lines = [];
-  list.forEach((VaccinationCountry country) {
-    final line = StepAreaSeries<VaccinationEntry, DateTime>(
-      name: country.name,
-      // Bind data source
-      dataSource: country.entries,
-      xValueMapper: (VaccinationEntry entry, _) => entry.date,
-      yValueMapper: (VaccinationEntry entry, _) => entry.totalVaccinated,
-      // Enables the tooltip for individual series
-      enableTooltip: true,
-    );
-    lines.add(line);
-  });
-  return lines;
-}
 
 List<StepLineSeries<VaccinationEntry, DateTime>> _getStepLines(
     List<VaccinationCountry> list) {

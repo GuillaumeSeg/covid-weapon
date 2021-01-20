@@ -34,7 +34,10 @@ class LocalSource {
     // Read file in cache
     final File file = File(localPath);
     // Parse file to DTO.
-    VaccinationCountryDto entry;
+    VaccinationCountryDto entry = VaccinationCountryDto(
+      name: country,
+      totalPercent: 0.0,
+    );
     double max = 0;
 
     file

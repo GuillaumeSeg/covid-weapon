@@ -24,6 +24,13 @@ mixin _$VaccineChartViewModel on _VaccineChartViewModel, Store {
               () => super.listPercentCountries,
               name: '_VaccineChartViewModel.listPercentCountries'))
           .value;
+  Computed<int> _$indexGraphComputed;
+
+  @override
+  int get indexGraph =>
+      (_$indexGraphComputed ??= Computed<int>(() => super.indexGraph,
+              name: '_VaccineChartViewModel.indexGraph'))
+          .value;
   Computed<List<VaccinationEntry>> _$listVaccinatedComputed;
 
   @override
@@ -78,6 +85,21 @@ mixin _$VaccineChartViewModel on _VaccineChartViewModel, Store {
     });
   }
 
+  final _$_indexGraphAtom = Atom(name: '_VaccineChartViewModel._indexGraph');
+
+  @override
+  int get _indexGraph {
+    _$_indexGraphAtom.reportRead();
+    return super._indexGraph;
+  }
+
+  @override
+  set _indexGraph(int value) {
+    _$_indexGraphAtom.reportWrite(value, super._indexGraph, () {
+      super._indexGraph = value;
+    });
+  }
+
   final _$_listVaccinatedAtom =
       Atom(name: '_VaccineChartViewModel._listVaccinated');
 
@@ -115,6 +137,7 @@ mixin _$VaccineChartViewModel on _VaccineChartViewModel, Store {
     return '''
 countryName: ${countryName},
 listPercentCountries: ${listPercentCountries},
+indexGraph: ${indexGraph},
 listVaccinated: ${listVaccinated},
 listCountries: ${listCountries},
 listBarChart: ${listBarChart}

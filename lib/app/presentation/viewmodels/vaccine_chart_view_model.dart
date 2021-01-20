@@ -1,6 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:covid_weapon/app/domain/entities/vaccination_country.dart';
 import 'package:covid_weapon/app/domain/entities/vaccination_entry.dart';
 import 'package:covid_weapon/app/domain/repositories/vaccination_country_repository.dart';
+import 'package:covid_weapon/app/presentation/navigation/app_router.gr.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:meta/meta.dart';
 import 'package:mobx/mobx.dart';
 
@@ -38,6 +41,12 @@ abstract class _VaccineChartViewModel with Store {
   }
 
   @observable
+  int _indexGraph = ActionGraph.graphDosesAdministrated.index;
+
+  @computed
+  int get indexGraph => _indexGraph;
+
+  @observable
   List<VaccinationEntry> _listVaccinated = [];
 
   @computed
@@ -61,18 +70,16 @@ abstract class _VaccineChartViewModel with Store {
       });
       list.add(BarChartDataCountry(country.name, max));
     });
-    list.sort((BarChartDataCountry a, BarChartDataCountry b) {
-      return a.totalVaccinated.compareTo(b.totalVaccinated);
-    });
+    list.sort();
     return list;
   }
-
 
   //----------------------------------------------------------------------------
   // ACTIONS
   //----------------------------------------------------------------------------
   void getCountryData() async {
-    final vaccinationCountry = await _repository.getEntriesForCountry("Germany");
+    final vaccinationCountry =
+        await _repository.getEntriesForCountry("Germany");
     _countryName = vaccinationCountry.name;
     _listVaccinated = vaccinationCountry.entries;
   }
@@ -87,11 +94,68 @@ abstract class _VaccineChartViewModel with Store {
     final data = await _repository.getAllCountryPercent();
     _listPercentCountries = data;
   }
+
+  void next() {
+    _indexGraph++;
+    print(_indexGraph);
+
+    if (ActionGraph.values[_indexGraph] == ActionGraph.graphPercent) {
+      getAllCountriesPercent();
+    } else if (ActionGraph.values[_indexGraph] == ActionGraph.weaponsArmory) {
+      ExtendedNavigator.root.push(Routes.weaponsArmoryView);
+      _indexGraph = 3;
+    }
+  }
+
+  void previous() {
+    _indexGraph--;
+    print(_indexGraph);
+
+    if (ActionGraph.values[_indexGraph] == ActionGraph.graphPercent) {
+      getAllCountriesPercent();
+    } else if (ActionGraph.values[_indexGraph] == ActionGraph.immunityBomb) {
+      ExtendedNavigator.root.pop();
+      ExtendedNavigator.root.replace(Routes.immunityBombView);
+    }
+  }
+
+  void reset() {
+    _indexGraph = 1;
+  }
+
+  //----------------------------------------------------------------------------
+  // PRIVATE METHODS
+  //----------------------------------------------------------------------------
+
+  void _navigateTo(String route, {Object args}) {
+    ExtendedNavigator.root.pop();
+
+    /*final currentPath = RouteData.of(ctx)?.path;
+    if (currentPath == null || currentPath != route) {
+      ExtendedNavigator.root.popUntilRoot();
+      if (route != Routes.immunityBombView) {
+        ExtendedNavigator.root.push(route, arguments: args);
+      }
+    }*/
+  }
 }
 
-class BarChartDataCountry {
+enum ActionGraph {
+  immunityBomb,
+  graphDosesAdministrated,
+  graphPercent,
+  graphEvolutionDoses,
+  weaponsArmory,
+}
+
+class BarChartDataCountry implements Comparable {
   final String name;
   final int totalVaccinated;
 
   BarChartDataCountry(this.name, this.totalVaccinated);
+
+  @override
+  int compareTo(other) {
+    return totalVaccinated.compareTo(other.totalVaccinated);
+  }
 }

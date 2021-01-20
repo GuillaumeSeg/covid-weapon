@@ -6,6 +6,7 @@ import 'package:covid_weapon/app/domain/repositories/vaccination_world_repositor
 import 'package:covid_weapon/app/presentation/navigation/app_router.gr.dart';
 import 'package:covid_weapon/app/presentation/viewmodels/immunity_bomb_view_model.dart';
 import 'package:covid_weapon/app/presentation/viewmodels/menu_drawer_view_model.dart';
+import 'package:covid_weapon/app/presentation/views/immunity_bomb_view.dart';
 import 'package:covid_weapon/app/presentation/views/menu_drawer.dart';
 import 'package:covid_weapon/core/config/owid_remote_config.dart';
 import 'package:dio/dio.dart';
@@ -13,6 +14,7 @@ import 'package:get_it/get_it.dart';
 
 import 'app/data/repositories/vaccination_world_repository_impl.dart';
 import 'app/presentation/viewmodels/vaccine_chart_view_model.dart';
+import 'app/presentation/views/vaccine_chart_view.dart';
 
 final sl = GetIt.instance;
 
@@ -37,12 +39,9 @@ Future<void> init() async {
           localSource: sl<LocalSource>()));
 
   // - VIEW MODELS
-  sl.registerLazySingleton<MenuDrawerViewModel>(() => MenuDrawerViewModel(
-      chartsViewArgs: sl<VaccineChartViewArguments>(),
-      immunityViewArgs: sl<ImmunityBombViewArguments>()));
-  sl.registerLazySingleton<ImmunityBombViewModel>(() => ImmunityBombViewModel(
-      repository: sl<VaccinationWorldRepository>(),
-      args: sl<VaccineChartViewArguments>()));
+  sl.registerLazySingleton<MenuDrawerViewModel>(() => MenuDrawerViewModel());
+  sl.registerLazySingleton<ImmunityBombViewModel>(() =>
+      ImmunityBombViewModel(repository: sl<VaccinationWorldRepository>()));
   sl.registerLazySingleton<VaccineChartViewModel>(() =>
       VaccineChartViewModel(repository: sl<VaccinationCountryRepository>()));
 
@@ -50,8 +49,12 @@ Future<void> init() async {
   sl.registerLazySingleton<MenuDrawer>(
       () => MenuDrawer(vm: sl<MenuDrawerViewModel>()));
   // - Views arguments
+  sl.registerLazySingleton<VaccineChartView>(
+      () => VaccineChartView(vm: sl<VaccineChartViewModel>()));
   sl.registerLazySingleton<VaccineChartViewArguments>(
       () => VaccineChartViewArguments(vm: sl<VaccineChartViewModel>()));
+  sl.registerLazySingleton<ImmunityBombView>(
+      () => ImmunityBombView(vm: sl<ImmunityBombViewModel>()));
   sl.registerLazySingleton<ImmunityBombViewArguments>(
       () => ImmunityBombViewArguments(vm: sl<ImmunityBombViewModel>()));
 }

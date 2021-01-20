@@ -13,13 +13,9 @@ class ImmunityBombViewModel = _ImmunityBombViewModel
 
 abstract class _ImmunityBombViewModel with Store {
   final VaccinationWorldRepository _repository;
-  final VaccineChartViewArguments _chartViewArguments;
 
-  _ImmunityBombViewModel(
-      {@required VaccinationWorldRepository repository,
-      @required VaccineChartViewArguments args})
-      : _repository = repository,
-        _chartViewArguments = args;
+  _ImmunityBombViewModel({@required VaccinationWorldRepository repository})
+      : _repository = repository;
 
   //----------------------------------------------------------------------------
   // OBSERVABLE PROPERTIES AND GETTERS
@@ -61,7 +57,6 @@ abstract class _ImmunityBombViewModel with Store {
   }
 
   void onBarChartButtonPressed() {
-    ExtendedNavigator.root
-        .push(Routes.vaccineChartView, arguments: _chartViewArguments);
+    ExtendedNavigator.root.push(Routes.vaccineChartView);
   }
 }

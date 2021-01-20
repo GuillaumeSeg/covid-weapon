@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:covid_weapon/app/domain/repositories/vaccination_country_repository.dart';
+import 'package:covid_weapon/app/presentation/navigation/app_main_router.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -25,8 +26,8 @@ class CovidWeaponApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       builder: ExtendedNavigator.builder(
-        initialRouteArgs: sl<ImmunityBombViewArguments>(),
-        router: AppRouter(),
+        //initialRouteArgs: sl<ImmunityBombViewArguments>(),
+        router: AppMainRouter(),
         builder: (context, extendedNav) => Theme(
           data: ThemeData.dark().copyWith(
             primaryColor: color1,

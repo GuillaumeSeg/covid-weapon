@@ -17,7 +17,7 @@ abstract class VaccinationCountryDto with _$VaccinationCountryDto {
 extension VaccinationCountryDtoX on VaccinationCountryDto {
   VaccinationCountry toDomain() {
     return VaccinationCountry(
-      name: name,
+      name: name ?? '',
       entries: list?.map((VaccinationEntryDto entry) {
         return entry.toDomain();
       })?.toList(),

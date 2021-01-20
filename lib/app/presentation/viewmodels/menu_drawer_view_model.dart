@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:covid_weapon/app/presentation/navigation/app_router.gr.dart';
 import 'package:mobx/mobx.dart';
@@ -10,25 +9,16 @@ part 'menu_drawer_view_model.g.dart';
 class MenuDrawerViewModel = _MenuDrawerViewModel with _$MenuDrawerViewModel;
 
 abstract class _MenuDrawerViewModel with Store {
-  final VaccineChartViewArguments _chartViewArguments;
-  final ImmunityBombViewArguments _immunityBombViewArguments;
-
-  _MenuDrawerViewModel(
-      {@required VaccineChartViewArguments chartsViewArgs,
-      @required ImmunityBombViewArguments immunityViewArgs})
-      : _chartViewArguments = chartsViewArgs,
-        _immunityBombViewArguments = immunityViewArgs;
 
   //----------------------------------------------------------------------------
   // ACTIONS
   //----------------------------------------------------------------------------
 
   void onHomeButtonPressed(BuildContext ctx) =>
-      _navigateTo(ctx, Routes.immunityBombView,
-          args: _immunityBombViewArguments);
+      _navigateTo(ctx, Routes.immunityBombView);
 
   void onVaccineChartsButtonPressed(BuildContext ctx) =>
-      _navigateTo(ctx, Routes.vaccineChartView, args: _chartViewArguments);
+      _navigateTo(ctx, Routes.vaccineChartView);
 
   void onWeaponsArmoryButtonPressed(BuildContext ctx) =>
       _navigateTo(ctx, Routes.weaponsArmoryView);
