@@ -24,4 +24,5 @@ const Color color3 = Color(0xFF527478);
 const Color color4 = Color(0xFF5B8772);
 const Color backgroundColor = Color(0xFF030E0A);
 
+const Color buymeacoffee = Color(0xFFffdd00);
 const Color whitec = Color(0xFFE4DFDA);
