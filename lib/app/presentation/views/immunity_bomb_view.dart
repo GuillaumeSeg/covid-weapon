@@ -74,7 +74,8 @@ class _ImmunityBombViewState extends State<ImmunityBombView> {
                             pointers: <GaugePointer>[
                               NeedlePointer(
                                 value: widget.vm.totalPeopleVaccinatedPercent,
-                                knobStyle: KnobStyle(knobRadius: 0.11, color: whitec),
+                                knobStyle:
+                                    KnobStyle(knobRadius: 0.11, color: whitec),
                                 needleLength: 0.70,
                                 enableAnimation: true,
                                 needleColor: whitec,
@@ -172,10 +173,13 @@ class _ImmunityBombViewState extends State<ImmunityBombView> {
                         textAlign: TextAlign.start,
                         text: TextSpan(
                             text: widget.vm.totalPeopleVaccinated,
-                            style: Theme.of(context).textTheme.bodyText2.copyWith(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                                color: color2),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                .copyWith(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: color2),
                             children: [
                               TextSpan(
                                 text: ' people vaccinated',
@@ -203,7 +207,10 @@ class _ImmunityBombViewState extends State<ImmunityBombView> {
             Icons.bar_chart_sharp,
             size: 46,
           ),
-          label: Text('Graphs'),
+          label: Text(
+            'Graphs',
+            style: TextStyle(fontFamily: 'Roboto', fontSize: 16),
+          ),
           elevation: 9,
           backgroundColor: color1,
           shape: RoundedRectangleBorder(

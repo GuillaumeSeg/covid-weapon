@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Utils {
   /// gets the applicationDirectory and path for the to-be downloaded file
@@ -10,5 +11,13 @@ class Utils {
     Directory tempDir = await getTemporaryDirectory();
     path = '${tempDir.path}/$uniqueFileName';
     return path;
+  }
+
+  static launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

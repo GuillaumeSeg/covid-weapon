@@ -1,6 +1,6 @@
 import 'package:covid_weapon/core/config/colors.dart';
+import 'package:covid_weapon/core/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class BuyMeACoffeeView extends StatelessWidget {
   static const String ourWorldInData = 'https://ourworldindata.org/coronavirus';
@@ -33,15 +33,18 @@ class BuyMeACoffeeView extends StatelessWidget {
                     flex: 3,
                     child: Text(
                       'Made with Flutter and ❤️ \nby Guillaume Segado',
-                      style: TextStyle(fontSize: 20.0),
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontFamily: 'Roboto',
+                      ),
                     )),
                 Expanded(
                   flex: 2,
                   child: Container(
                     width: 150,
                     child: RaisedButton(
-                      onPressed: () =>
-                          _launchURL('https://www.buymeacoffee.com/guyom.sega'),
+                      onPressed: () => Utils.launchURL(
+                          'https://www.buymeacoffee.com/guyom.sega'),
                       textColor: Colors.white,
                       color: Colors.transparent,
                       splashColor: buymeacoffee,
@@ -57,10 +60,14 @@ class BuyMeACoffeeView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text('Powered by : '),
+                Text(
+                  'Powered by : ',
+                  style: TextStyle(fontFamily: 'Roboto'),
+                ),
                 GestureDetector(
-                  onTap: () => _launchURL(ourWorldInData),
+                  onTap: () => Utils.launchURL(ourWorldInData),
                   child: Image(
                     image: AssetImage('images/ourworldindata.jpg'),
                     width: 40,
@@ -68,7 +75,7 @@ class BuyMeACoffeeView extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () => _launchURL(ourWorldInData),
+                  onTap: () => Utils.launchURL(ourWorldInData),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: Text(
@@ -76,6 +83,7 @@ class BuyMeACoffeeView extends StatelessWidget {
                       style: TextStyle(
                         decoration: TextDecoration.underline,
                         color: Colors.indigo,
+                        fontFamily: 'Roboto',
                       ),
                     ),
                   ),
@@ -86,13 +94,5 @@ class BuyMeACoffeeView extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 }

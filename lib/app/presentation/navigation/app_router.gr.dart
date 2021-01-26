@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 
 import '../viewmodels/immunity_bomb_view_model.dart';
 import '../viewmodels/vaccine_chart_view_model.dart';
+import '../viewmodels/weapons_armory_view_model.dart';
 import '../views/buy_me_a_coffee_view.dart';
 import '../views/immunity_bomb_view.dart';
 import '../views/vaccine_chart_view.dart';
@@ -62,8 +63,9 @@ class AppRouter extends RouterBase {
       );
     },
     WeaponsArmoryView: (data) {
+      final args = data.getArgs<WeaponsArmoryViewArguments>(nullOk: false);
       return MaterialPageRoute<dynamic>(
-        builder: (context) => WeaponsArmoryView(),
+        builder: (context) => WeaponsArmoryView(vm: args.vm),
         settings: data,
       );
     },
@@ -92,4 +94,10 @@ class VaccineChartViewArguments {
   final VaccineChartViewModel vm;
   final Key key;
   VaccineChartViewArguments({@required this.vm, this.key});
+}
+
+/// WeaponsArmoryView arguments holder class
+class WeaponsArmoryViewArguments {
+  final WeaponsArmoryViewModel vm;
+  WeaponsArmoryViewArguments({@required this.vm});
 }

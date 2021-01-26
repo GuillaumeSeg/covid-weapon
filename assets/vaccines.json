@@ -1,0 +1,68 @@
+[
+  {
+    "name": "Comirnaty (Tozinameran)",
+    "manufacturer": "Pfizer-BioNTech",
+    "status": "authorized (EU)",
+    "type": "Messenger RNA",
+    "origin": "\uD83C\uDDFA\uD83C\uDDF8\uD83C\uDDE9\uD83C\uDDEA",
+    "efficiency": "94.5%",
+    "conservation": "-70°C",
+    "doses": "2 (21 days apart)",
+    "link": "https://en.wikipedia.org/wiki/Pfizer%E2%80%93BioNTech_COVID-19_vaccine"
+  },
+  {
+    "name": "mRNA-1273",
+    "manufacturer": "ModernaTX",
+    "status": "authorized (EU)",
+    "type": "Messenger RNA",
+    "origin": "\uD83C\uDDFA\uD83C\uDDF8",
+    "efficiency": "94%",
+    "conservation": "-20°C (6 months), +5°C (1 month)",
+    "doses": "2",
+    "link": "https://en.wikipedia.org/wiki/Moderna_COVID-19_vaccine"
+  },
+  {
+    "name": "AZD1222 - Covishield",
+    "manufacturer": "AstraZeneca/Oxford",
+    "status": "pending (EU)",
+    "type": "Viral vector",
+    "origin": "\uD83C\uDDEC\uD83C\uDDE7\uD83C\uDDF8\uD83C\uDDEA",
+    "efficiency": "70%",
+    "conservation": "+5°C (6 months)",
+    "doses": "2",
+    "link": "https://en.wikipedia.org/wiki/Oxford%E2%80%93AstraZeneca_COVID-19_vaccine"
+  },
+  {
+    "name": "Ad26.COV2.S",
+    "manufacturer": "Janssen J&J",
+    "status": "on hold",
+    "type": "Viral vector",
+    "origin": "\uD83C\uDDFA\uD83C\uDDF8\uD83C\uDDE7\uD83C\uDDEA",
+    "efficiency": "?%",
+    "conservation": "+5°C",
+    "doses": "1 or 2",
+    "link": "https://en.wikipedia.org/wiki/Ad26.COV2.S"
+  },
+  {
+    "name": "Zorecimeran",
+    "manufacturer": "CureVac",
+    "status": "on hold",
+    "type": "Messenger RNA",
+    "origin": "\uD83C\uDDE9\uD83C\uDDEA",
+    "efficiency": "?%",
+    "conservation": "-60°C (3 months), +5°C (3 months)",
+    "doses": "2",
+    "link": "https://en.wikipedia.org/wiki/CureVac"
+  },
+  {
+    "name": "\nGam-COVID-Vac (Sputnik V),\nBBIBP-CorV,\nCoronaVac,\nAd5-nCoV,\nEpiVacCorona,\nBBV152,\nNVX-CoV2373,\nZF2001,\n[...]",
+    "manufacturer": "",
+    "status": "",
+    "type": "",
+    "origin": "",
+    "efficiency": "?%",
+    "conservation": "",
+    "doses": "",
+    "link": "https://en.wikipedia.org/wiki/COVID-19_vaccine#Vaccines"
+  }
+]

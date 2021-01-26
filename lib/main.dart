@@ -37,6 +37,15 @@ class CovidWeaponApp extends StatelessWidget {
             ),
             canvasColor: backgroundColor,
             visualDensity: VisualDensity.adaptivePlatformDensity,
+            textTheme: ThemeData.dark().textTheme.apply(
+              fontFamily: 'Quantico',
+            ),
+            primaryTextTheme: ThemeData.dark().textTheme.apply(
+              fontFamily: 'Quantico',
+            ),
+            accentTextTheme: ThemeData.dark().textTheme.apply(
+              fontFamily: 'Quantico',
+            ),
           ),
           child: extendedNav,
         ),

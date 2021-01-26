@@ -1,9 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:covid_weapon/app/data/dtos/vaccination_country_dto.dart';
 import 'package:covid_weapon/app/data/dtos/vaccination_entry_dto.dart';
 import 'package:covid_weapon/app/data/dtos/vaccination_world_dto.dart';
+import 'package:covid_weapon/app/data/dtos/vaccine_dto.dart';
 import 'package:covid_weapon/core/utils/utils.dart';
+import 'package:flutter/services.dart';
 
 class LocalSource {
   Future<VaccinationCountryDto> getVaccinationForCountry(String country) async {
@@ -88,5 +91,19 @@ class LocalSource {
     }).toList();
 
     return entry;
+  }
+
+  Future<List<VaccineDto>> getVaccinesInfo() async {
+    final str = await rootBundle.loadString('assets/vaccines.json');
+
+    if (str == null) {
+      return [];
+    } else {
+      Iterable jsonList = json.decode(str);
+      List<VaccineDto> result = jsonList
+          .map((json) => VaccineDto.fromJson(json as Map<String, dynamic>))
+          .toList();
+      return result;
+    }
   }
 }

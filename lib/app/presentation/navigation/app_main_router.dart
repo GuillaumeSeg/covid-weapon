@@ -58,7 +58,7 @@ class AppMainRouter extends RouterBase {
     },
     WeaponsArmoryView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => WeaponsArmoryView(),
+        builder: (context) => sl<WeaponsArmoryView>(),
         settings: data,
       );
     },
