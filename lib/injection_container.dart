@@ -8,6 +8,7 @@ import 'package:covid_weapon/app/presentation/navigation/app_router.gr.dart';
 import 'package:covid_weapon/app/presentation/viewmodels/immunity_bomb_view_model.dart';
 import 'package:covid_weapon/app/presentation/viewmodels/menu_drawer_view_model.dart';
 import 'package:covid_weapon/app/presentation/viewmodels/weapons_armory_view_model.dart';
+import 'package:covid_weapon/app/presentation/views/buy_me_a_coffee_view.dart';
 import 'package:covid_weapon/app/presentation/views/immunity_bomb_view.dart';
 import 'package:covid_weapon/app/presentation/views/menu_drawer.dart';
 import 'package:covid_weapon/app/presentation/views/weapons_armory_view.dart';
@@ -66,4 +67,5 @@ Future<void> init() async {
       () => ImmunityBombViewArguments(vm: sl<ImmunityBombViewModel>()));
   sl.registerFactory<WeaponsArmoryView>(
       () => WeaponsArmoryView(vm: sl<WeaponsArmoryViewModel>()));
+  sl.registerFactory<BuyMeACoffeeView>(() => BuyMeACoffeeView());
 }

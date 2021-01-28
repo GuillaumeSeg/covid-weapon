@@ -64,7 +64,7 @@ class AppMainRouter extends RouterBase {
     },
     BuyMeACoffeeView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => BuyMeACoffeeView(),
+        builder: (context) => sl<BuyMeACoffeeView>(),
         settings: data,
       );
     },

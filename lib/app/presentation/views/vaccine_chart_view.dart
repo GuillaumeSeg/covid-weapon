@@ -56,18 +56,23 @@ class _VaccineChartViewState extends State<VaccineChartView> {
                     child: Observer(
                       builder: (context) {
                         switch (widget.vm.indexGraph) {
-                          case 1: {
-                            return _getBarChart(widget.vm.listBarChart);
-                          }
-                          case 2: {
-                            return _getBarChartPercent(widget.vm.listPercentCountries);
-                          }
-                          case 3: {
-                            return _getDateTimeChart(widget.vm.listCountries);
-                          }
-                          default: {
-                            return _getBarChart(widget.vm.listBarChart);
-                          }
+                          case 1:
+                            {
+                              return _getBarChart(widget.vm.listBarChart);
+                            }
+                          case 2:
+                            {
+                              return _getBarChartPercent(
+                                  widget.vm.listPercentCountries);
+                            }
+                          case 3:
+                            {
+                              return _getDateTimeChart(widget.vm.listCountries);
+                            }
+                          default:
+                            {
+                              return _getBarChart(widget.vm.listBarChart);
+                            }
                         }
                       },
                     ),
@@ -88,14 +93,14 @@ class _VaccineChartViewState extends State<VaccineChartView> {
                                 size: 65,
                               ),
                             ),
-                            Observer(
-                              builder: (BuildContext context) {
-                                if (widget.vm.indexGraph <= ActionGraph.graphDosesAdministrated.index) {
-                                  return Text('Immunity bomb');
-                                } else {
-                                  return Text('Previous');
-                                }
-                              }),
+                            Observer(builder: (BuildContext context) {
+                              if (widget.vm.indexGraph <=
+                                  ActionGraph.graphDosesAdministrated.index) {
+                                return Text('Immunity bomb');
+                              } else {
+                                return Text('Previous');
+                              }
+                            }),
                           ],
                         ),
                       ),
@@ -103,14 +108,14 @@ class _VaccineChartViewState extends State<VaccineChartView> {
                         onTap: widget.vm.next,
                         child: Row(
                           children: [
-                            Observer(
-                                builder: (BuildContext context) {
-                                  if (widget.vm.indexGraph >= ActionGraph.graphEvolutionDoses.index) {
-                                    return Text('Weapons');
-                                  } else {
-                                    return Text('Next');
-                                  }
-                                }),
+                            Observer(builder: (BuildContext context) {
+                              if (widget.vm.indexGraph >=
+                                  ActionGraph.graphEvolutionDoses.index) {
+                                return Text('Weapons');
+                              } else {
+                                return Text('Next');
+                              }
+                            }),
                             Icon(
                               Icons.double_arrow_sharp,
                               color: color1,
@@ -158,12 +163,12 @@ List<StepLineSeries<VaccinationEntry, DateTime>> _getStepLines(
 SfCartesianChart _getDateTimeChart(List<VaccinationCountry> list) {
   return SfCartesianChart(
       title: ChartTitle(
-          text: 'Surgical strikes per country :',
+          text: 'Evolution vaccination per country:',
           // Aligns the chart title to left
           alignment: ChartAlignment.near,
           textStyle: TextStyle(
             color: Colors.red,
-            fontFamily: 'Roboto',
+            fontFamily: 'Quantico',
             fontStyle: FontStyle.normal,
             fontWeight: FontWeight.bold,
             fontSize: 14,
@@ -223,12 +228,12 @@ List<LineSeries<VaccinationEntry, DateTime>> _getLines(
 SfCartesianChart _getBarChart(List<BarChartDataCountry> list) {
   return SfCartesianChart(
     title: ChartTitle(
-      text: 'Surgical strikes per country : (total vaccinated)',
+      text: 'Surgical strikes per country: (total vaccinated)',
       // Aligns the chart title to left
       alignment: ChartAlignment.near,
       textStyle: TextStyle(
         color: Colors.red,
-        fontFamily: 'Roboto',
+        fontFamily: 'Quantico',
         fontStyle: FontStyle.normal,
         fontWeight: FontWeight.bold,
         fontSize: 14,
@@ -236,7 +241,10 @@ SfCartesianChart _getBarChart(List<BarChartDataCountry> list) {
     ),
     // Init axis
     isTransposed: false,
-    primaryXAxis: CategoryAxis(),
+    primaryXAxis: CategoryAxis(
+      interval: 1,
+      visibleMinimum: list.length-35.0,
+    ),
     primaryYAxis: NumericAxis(),
     zoomPanBehavior: ZoomPanBehavior(
       enablePanning: true,
@@ -272,12 +280,12 @@ BarSeries<BarChartDataCountry, String> _getBarLines(
 SfCartesianChart _getBarChartPercent(List<VaccinationCountry> list) {
   return SfCartesianChart(
     title: ChartTitle(
-      text: 'Surgical strikes by country : (per 100 people)',
+      text: 'Surgical strikes by country: (per 100 people)',
       // Aligns the chart title to left
       alignment: ChartAlignment.near,
       textStyle: TextStyle(
         color: Colors.red,
-        fontFamily: 'Roboto',
+        fontFamily: 'Quantico',
         fontStyle: FontStyle.normal,
         fontWeight: FontWeight.bold,
         fontSize: 14,
@@ -285,12 +293,15 @@ SfCartesianChart _getBarChartPercent(List<VaccinationCountry> list) {
     ),
     // Init axis
     isTransposed: false,
+    enableAxisAnimation: true,
     primaryXAxis: CategoryAxis(
-      visibleMinimum: 8.0,
+      interval: 1,
+      visibleMinimum: list.length-35.0,
     ),
     primaryYAxis: NumericAxis(
       visibleMinimum: 0.0,
       visibleMaximum: 20.0,
+      labelFormat: '{value}%',
     ),
     zoomPanBehavior: ZoomPanBehavior(
       enablePanning: true,

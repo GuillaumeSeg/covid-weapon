@@ -22,7 +22,7 @@ class BuyMeACoffeeView extends StatelessWidget {
             child: Text(
               'Protect them, protect yourself ! You have the weapons at your disposal and the ability to affect the health of others.',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              style: TextStyle(color: color2, fontSize: 30, fontWeight: FontWeight.bold),
             ),
           ),
           Padding(

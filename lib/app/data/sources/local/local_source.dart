@@ -79,7 +79,12 @@ class LocalSource {
         .skipWhile((line) => !line.startsWith('World'))
         .map((line) {
       final parts = line.split(',');
-      final total = int.parse(parts[4]);
+      int total;
+      try {
+        total = int.parse(parts[4]);
+      } catch (e) {
+        total = 0;
+      }
       if (max < total) {
         max = total;
         entry = VaccinationWorldDto(
