@@ -44,4 +44,8 @@ const List<String> countryList = [
   'Scotland',
   'Serbia',
   'Seychelles',
+  'Singapore',
+  'Slovakia',
+  'Slovenia',
+  'Spain',
 ];

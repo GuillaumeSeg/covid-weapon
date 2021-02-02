@@ -22,7 +22,8 @@ class BuyMeACoffeeView extends StatelessWidget {
             child: Text(
               'Protect them, protect yourself ! You have the weapons at your disposal and the ability to affect the health of others.',
               textAlign: TextAlign.center,
-              style: TextStyle(color: color2, fontSize: 30, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: color2, fontSize: 30, fontWeight: FontWeight.bold),
             ),
           ),
           Padding(
@@ -43,8 +44,9 @@ class BuyMeACoffeeView extends StatelessWidget {
                   child: Container(
                     width: 150,
                     child: RaisedButton(
-                      onPressed: () => Utils.launchURL(
-                          'https://www.buymeacoffee.com/guyom.sega'),
+                      onPressed: () => null,
+                      // Google Play doesn't autorize donations from other third party then playstore
+                      //Utils.launchURL('https://www.buymeacoffee.com/guyom.sega'),
                       textColor: Colors.white,
                       color: Colors.transparent,
                       splashColor: buymeacoffee,
